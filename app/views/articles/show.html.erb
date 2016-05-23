@@ -17,7 +17,7 @@
 <%= form_for([@article, @comment]) do |f| %>
   <div class="field">
     <%= f.label :content, 'Comment' %><br>
-    <%= f.text_area :content %>
+    <%= f.text_field :content %>
   </div>
   <div class="actions">
     <%= f.submit %>
@@ -31,9 +31,14 @@
     <div class="comment">
       <p>
         <%= comment.posted_at %>
-        <b><%= comment.user.username %></b>
+        <b><%= comment.user.try :username or 'Anonymous' %></b>
       </p>
-      <p><%= comment.content %></p>
+      <p class="rest-in-place"
+         data-object="comment"
+         data-url="<%= article_comment_path @article, comment %>"
+         data-attribute="content">
+        <%= comment.content %>
+      </p>
     </div>
     <hr>
   <% end %>

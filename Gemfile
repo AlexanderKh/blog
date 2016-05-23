@@ -27,6 +27,8 @@ gem 'paperclip', '~> 4.3.6'
 
 gem 'devise'
 
+gem 'rest_in_place'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

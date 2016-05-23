@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.form.min
+//= require rest_in_place
 //= require_tree .
