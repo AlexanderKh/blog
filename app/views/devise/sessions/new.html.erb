@@ -1,0 +1,26 @@
+<div class="header-row">
+  <%= link_to 'Back', :back, class: 'back-button' %>
+  <h2 class="login-label">Log in</h2>
+</div>
+
+<div class="login-wrapper">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field input-field">
+      <%= f.text_field :username, autofocus: true, class: 'input', placeholder: 'Username' %>
+    </div>
+
+    <div class="field input-field">
+      <%= f.password_field :password, autocomplete: "off", class: 'input', placeholder: 'Password' %>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end -%>
+
+    <%= f.submit "Log in", class: 'login-button' %>
+  <% end %>
+</div>
+<%= render "devise/shared/links" %>
