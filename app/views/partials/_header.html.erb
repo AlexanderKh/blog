@@ -1,0 +1,9 @@
+<div>
+  <% if user_signed_in? %>
+      Signed in as <b> <%= current_user.username %> </b>
+      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+  <% else %>
+      <%= link_to 'Login', new_user_session_path %>
+  <% end %> <br>
+  <%= link_to 'Articles', :articles %>
+</div>
