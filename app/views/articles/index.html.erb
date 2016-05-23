@@ -1,8 +1,10 @@
-<h1>Listing Articles</h1>
+<%= link_to 'New Article', new_article_path %>
+<br>
 
 <table>
   <thead>
     <tr>
+      <th>Date</th>
       <th>Title</th>
       <th>Content</th>
       <th>Picture</th>
@@ -13,6 +15,7 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
+        <td><%= article.published_at %></td>
         <td><%= article.title %></td>
         <td><%= article.content %></td>
         <td><%= image_tag article.picture.url :thumb %></td>
@@ -24,6 +27,3 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Article', new_article_path %>
