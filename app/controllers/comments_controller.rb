@@ -1,26 +1,15 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @comments = Comment.all
-  end
-
-  def show
-  end
-
-  def new
-    @comment = Comment.new
-  end
-
-  def edit
-  end
+  before_action :set_comment, only: [:update, :destroy]
+  before_action :set_article, only: [:create, :update, :destroy]
 
   def create
     @comment = Comment.new(comment_params)
+    @comment.article = @article
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
-        format.json { render :show, status: :created, location: @comment }
+        format.json { render json: @comment, status: :created }
       else
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
@@ -30,7 +19,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.json { render :show, status: :ok, location: @comment }
+        format.json { render json: @comment, status: :ok }
       else
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
@@ -52,6 +41,10 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :article_id, :user_id)
+      params.require(:comment).permit(:content)
+    end
+
+    def set_article
+      @article = Article.find(params[:article_id])
     end
 end
