@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_comment, only: [:update, :destroy]
   before_action :set_article, only: [:create, :update, :destroy]
+  before_action :authorize_user, only: [:update, :destroy]
 
   def create
     @comment = Comment.new(comment_params)
@@ -36,17 +38,19 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:content)
     end
 
     def set_article
       @article = Article.find(params[:article_id])
+    end
+
+    def authorize_user
+      raise 'Unauthorized' unless current_user.has_access_to? @comment
     end
 end
