@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable
 
+  validates :username, presence: true
+  validates :role, presence: true
+
   enum role: { user: 0, admin: 1 }
 
   after_initialize :set_default_role, :if => :new_record?

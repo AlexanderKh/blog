@@ -1,14 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context 'validations' do
-    before :each do
-      @user = User.new
-    end
-
-    it 'should require a username' do
-      expect(@user).to be_invalid
-      expect(@user.errors).not_to be_nil
-    end
+  context 'Validations' do
+    it { should validate_presence_of :username }
+    it { should validate_presence_of :role }
   end
 end
