@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
   has_many :comments
+  belongs_to :user
 
   has_attached_file :picture, :styles => { :medium => "500x500>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :picture, :content_type => /\Aimage/
@@ -8,5 +9,9 @@ class Article < ActiveRecord::Base
 
   def published_at
     created_at.strftime("%Y-%m-%d")
+  end
+
+  def author
+    user.username
   end
 end
