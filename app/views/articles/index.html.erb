@@ -1,5 +1,7 @@
+<% if current_user %>
 <%= link_to 'New Article', new_article_path %>
 <br>
+<% end %>
 
 <table>
   <thead>
@@ -20,8 +22,10 @@
         <td><%= article.content %></td>
         <td><%= image_tag article.picture.url :thumb %></td>
         <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.try :has_access_to?, @article %>
+            <td><%= link_to 'Edit', edit_article_path(article) %></td>
+            <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
