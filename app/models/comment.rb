@@ -9,4 +9,8 @@ class Comment < ActiveRecord::Base
   def posted_at
     created_at.strftime("%Y-%m-%d %H:%M")
   end
+
+  def author
+    user.try :username
+  end
 end

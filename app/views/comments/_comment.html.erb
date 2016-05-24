@@ -2,7 +2,7 @@
 
   <p>
     <%= comment.posted_at %>
-    <b><%= comment.user.try :username or 'Anonymous' %></b>
+    <b><%= comment.author or 'Anonymous' %></b>
   </p>
 
   <% if current_user.try :has_access_to?, comment %>
