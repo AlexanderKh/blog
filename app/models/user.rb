@@ -10,16 +10,16 @@ class User < ActiveRecord::Base
     self.role ||= :user
   end
 
-  # To login with username
+  def has_access_to? object
+    self == object.try(:user) or self.admin?
+  end
+
+  #To log in using username
   def email_required?
     false
   end
 
   def email_changed?
     false
-  end
-
-  def has_access_to? object
-    self == object.try(:user) or self.admin?
   end
 end
