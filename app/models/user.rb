@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
   def email_changed?
     false
   end
+
+  def has_access_to? object
+    true
+  end
 end

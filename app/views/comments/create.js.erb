@@ -1,3 +1,4 @@
 var comment = $("<%= escape_javascript(render @comment) %>");
 comment.prependTo(".comments");
 comment.find('.rest-in-place').restInPlace();
+$('input#comment_content').val('');

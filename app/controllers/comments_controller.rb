@@ -31,6 +31,7 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
       format.json { head :no_content }
+      format.js   { }
     end
   end
 

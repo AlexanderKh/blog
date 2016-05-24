@@ -1,18 +1,20 @@
-<h2><%= @article.title %></h2>
+<h1><%= @article.title %></h1>
 
 <a href="<%= @article.picture.url %>">
   <%= image_tag @article.picture.url :medium %>
 </a>
 
 <p>
-  <strong>Content:</strong>
   <%= @article.content %>
 </p>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
+<% if current_user.try :has_access_to?, @article %>
+    <%= link_to 'Edit', edit_article_path(@article) %> |
+    <%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
 <%= link_to 'Back', articles_path %>
 
-<h3>Comments</h3>
+<h2>Comments</h2>
 
 <%= form_for([@article, @comment], remote: true) do |f| %>
   <div class="field">
@@ -23,8 +25,6 @@
     <%= f.submit %>
   </div>
 <% end %>
-
-<hr>
 
 <div class="comments">
   <%= render @article.comments %>
