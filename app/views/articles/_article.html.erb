@@ -1,0 +1,21 @@
+<hr>
+
+<h2>
+  <a href="<%= url_for article %>">
+    <%= article.title %>
+  </a>
+</h2>
+
+<a href="<%= url_for article %>">
+  <%= image_tag article.picture.url :thumb %>
+</a>
+
+<p>
+  Posted on: <%= article.published_at %>
+  By: <%= article.author %>
+</p>
+
+<% if current_user.try :has_access_to?, @article %>
+    <%= link_to 'Edit', edit_article_path(article) %>
+    <%= link_to 'Delete', article, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
