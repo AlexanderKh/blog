@@ -1,25 +1,22 @@
 <div class="comment" id="<%= "comment-#{comment.id}" %>">
+
   <p>
     <%= comment.posted_at %>
     <b><%= comment.user.try :username or 'Anonymous' %></b>
   </p>
 
   <% if current_user.try :has_access_to?, comment %>
-
-    <p class="rest-in-place"
-       data-object="comment"
-       data-url="<%= article_comment_path @article, comment %>"
-       data-attribute="content">
-      <%= comment.content %>
-    </p>
-
-    <%= link_to "Delete", article_comment_path(@article, comment), remote: true, method: :delete %>
-
+      <p class="rest-in-place"
+         data-object="comment"
+         data-url="<%= article_comment_path @article, comment %>"
+         data-attribute="content">
+        <%= comment.content %>
+      </p>
+      <%= link_to "Delete", article_comment_path(@article, comment), remote: true, method: :delete %>
   <% else %>
-
       <p>
         <%= comment.content %>
       </p>
-
   <% end %>
+
 </div>
