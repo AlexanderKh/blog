@@ -20,6 +20,6 @@ class User < ActiveRecord::Base
   end
 
   def has_access_to? object
-    true
+    self == object.try(:user) or self.admin?
   end
 end
