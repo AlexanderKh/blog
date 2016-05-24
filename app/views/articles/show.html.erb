@@ -16,15 +16,7 @@
 
 <h2>Comments</h2>
 
-<%= form_for([@article, @comment], remote: true) do |f| %>
-  <div class="field">
-    <%= f.label :content, 'Comment' %><br>
-    <%= f.text_field :content %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%= render 'comments/form' %>
 
 <div class="comments">
   <%= render @article.comments %>
