@@ -14,7 +14,7 @@
 
 <h3>Comments</h3>
 
-<%= form_for([@article, @comment]) do |f| %>
+<%= form_for([@article, @comment], remote: true) do |f| %>
   <div class="field">
     <%= f.label :content, 'Comment' %><br>
     <%= f.text_field :content %>
@@ -26,20 +26,6 @@
 
 <hr>
 
-<div>
-  <% @article.comments.each do |comment| %>
-    <div class="comment">
-      <p>
-        <%= comment.posted_at %>
-        <b><%= comment.user.try :username or 'Anonymous' %></b>
-      </p>
-      <p class="rest-in-place"
-         data-object="comment"
-         data-url="<%= article_comment_path @article, comment %>"
-         data-attribute="content">
-        <%= comment.content %>
-      </p>
-    </div>
-    <hr>
-  <% end %>
+<div class="comments">
+  <%= render @article.comments %>
 </div>

@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.json { render json: @comment, status: :created }
+        format.js   { }
       else
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
