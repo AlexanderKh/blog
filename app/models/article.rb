@@ -7,6 +7,9 @@ class Article < ActiveRecord::Base
 
   default_scope { order(created_at: :desc) }
 
+  validates :title, :user, presence: true
+  validates :content, presence: true, length: { minimum: 10 }
+
   def published_at
     created_at.strftime("%Y-%m-%d")
   end
