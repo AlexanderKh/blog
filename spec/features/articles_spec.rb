@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Articles' do
   given(:user) { create :user }
+  given(:admin) { create :admin }
 
   scenario 'Creating article as plain user' do
     login_as user
@@ -17,7 +18,7 @@ feature 'Articles' do
     expect(page).to have_content 'Abra Ka Dabra'
   end
 
-  context 'Given an article' do
+  context 'Given an article owned by user' do
     given!(:article) { create :article, user: user }
 
     scenario 'Editing article as plain user' do
@@ -41,6 +42,25 @@ feature 'Articles' do
       visit '/'
       click_link 'Delete'
       expect(page).not_to have_content article.title
+      expect(page).to have_content 'Article was successfully destroyed'
+    end
+
+    scenario 'Editing article as admin' do
+      login_as admin
+      visit '/'
+      click_link 'Edit'
+      within '.edit_article' do
+        fill_in 'Content', with: 'Abra Ka Dabra'
+      end
+      click_button 'Update Article'
+      expect(page).to have_content 'Article was successfully updated'
+      expect(page).to have_content 'Abra Ka Dabra'
+    end
+
+    scenario 'Deleting article as admin' do
+      login_as admin
+      visit '/'
+      click_link 'Delete'
       expect(page).to have_content 'Article was successfully destroyed'
     end
   end
