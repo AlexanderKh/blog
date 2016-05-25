@@ -6,6 +6,12 @@ RSpec.describe Comment, type: :model do
     it { should validate_presence_of :content }
   end
 
+  context 'Initialization' do
+    it 'could be created without user identity' do
+      create :comment, user: nil
+    end
+  end
+
   context 'Sorting' do
     let(:user) { create :user }
     let(:article) { create :article, user: user }

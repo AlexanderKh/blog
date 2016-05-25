@@ -20,6 +20,7 @@ RSpec.describe User, type: :model do
     let(:admin_article) { create :article, user: admin }
     let(:comment) { create :comment, article: article, user: user }
     let(:admin_comment) { create :comment, article: article, user: admin }
+    let(:anonymous_comment) { create :comment, article: article, user: nil }
 
     context 'Admin' do
       it 'should have access to all articles' do
@@ -30,6 +31,7 @@ RSpec.describe User, type: :model do
       it 'should have access to all comments' do
         expect(admin.has_access_to?(comment)).to be true
         expect(admin.has_access_to?(admin_comment)).to be true
+        expect(admin.has_access_to?(anonymous_comment)).to be true
       end
     end
 
@@ -42,6 +44,7 @@ RSpec.describe User, type: :model do
       it 'should have access only to own comments' do
         expect(user.has_access_to?(comment)).to be true
         expect(user.has_access_to?(admin_comment)).to be false
+        expect(user.has_access_to?(anonymous_comment)).to be false
       end
     end
   end
