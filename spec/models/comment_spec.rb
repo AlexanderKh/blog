@@ -10,7 +10,7 @@ RSpec.describe Comment, type: :model do
     let(:user) { create :user }
     let(:article) { create :article, user: user }
 
-    it 'should sort articles from last added' do
+    it 'should sort comments from last added' do
       c1 = create :comment, user: user, article: article
       c2 = create :comment, user: user, article: article
       c3 = create :comment, user: user, article: article
