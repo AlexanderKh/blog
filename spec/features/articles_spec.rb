@@ -63,5 +63,38 @@ feature 'Articles' do
       click_link 'Delete'
       expect(page).to have_content 'Article was successfully destroyed'
     end
+
+    scenario 'Anonymous cannot edit or delete an article' do
+      visit '/'
+      expect(page).not_to have_content 'Edit'
+      expect(page).not_to have_content 'Delete'
+      click_link article.title
+      expect(page).not_to have_content 'Edit'
+      expect(page).not_to have_content 'Delete'
+    end
+  end
+
+  context 'Given an article owned by admin' do
+    given!(:article) { create :article, user: admin }
+
+    scenario 'User cannot edit or delete an article' do
+      login_as user
+      visit '/'
+      expect(page).not_to have_content 'Edit'
+      expect(page).not_to have_content 'Delete'
+      click_link article.title
+      expect(page).not_to have_content 'Edit'
+      expect(page).not_to have_content 'Delete'
+    end
+
+    scenario 'Admin can edit or delete an article' do
+      login_as admin
+      visit '/'
+      expect(page).to have_content 'Edit'
+      expect(page).to have_content 'Delete'
+      click_link article.title
+      expect(page).to have_content 'Edit'
+      expect(page).to have_content 'Delete'
+    end
   end
 end
