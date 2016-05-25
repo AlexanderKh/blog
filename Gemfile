@@ -41,17 +41,22 @@ gem 'jquery-turbolinks'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-  gem 'rspec-rails', '~> 3.4.2'
-  gem 'factory_girl', '~> 4.7.0'
-  gem 'factory_girl_rails', '~> 4.7.0'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'pry'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.4.2'
+  gem 'database_cleaner'
+  gem 'factory_girl', '~> 4.7.0'
+  gem 'factory_girl_rails', '~> 4.7.0'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
