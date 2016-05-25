@@ -27,7 +27,7 @@ RSpec.describe ArticlesController, type: :controller do
 
     before { post :create, {article: article_attributes} }
 
-    it { is_expected.to have_http_status :created }
+    it { is_expected.to have_http_status :found }
 
     context 'invalid data' do
       let(:article_attributes) { attributes_for :article, title: '' }
@@ -42,7 +42,7 @@ RSpec.describe ArticlesController, type: :controller do
 
     before { patch :update, { id: article.id, article: article_params } }
 
-    it { is_expected.to have_http_status :success }
+    it { is_expected.to have_http_status :found }
 
     context 'invalid params' do
       let(:article_params) { attributes_for :article, title: '' }

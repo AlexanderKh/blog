@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.', status: :created }
+        format.html { redirect_to @article, notice: 'Article was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.', status: :accepted }
+        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
