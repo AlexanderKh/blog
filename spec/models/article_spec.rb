@@ -17,4 +17,11 @@ RSpec.describe Article, type: :model do
       expect(Article.all).to eq [a3, a2, a1]
     end
   end
+
+  context 'Pictures' do
+    it 'should create article with picture' do
+      article = create :article, picture: File.new("#{Rails.root}/spec/factories/image_1.jpg")
+      expect(article).to be_valid
+    end
+  end
 end
