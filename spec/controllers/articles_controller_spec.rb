@@ -5,10 +5,7 @@ RSpec.describe ArticlesController, type: :controller do
   let(:article) { create(:article, user: user) }
   subject { response }
 
-  before do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
-    sign_in user
-  end
+  before { sign_in user }
 
   describe '#index' do
     before { get :index }
@@ -44,7 +41,7 @@ RSpec.describe ArticlesController, type: :controller do
 
     it { is_expected.to have_http_status :found }
 
-    context 'invalid params' do
+    context 'invalid data' do
       let(:article_params) { attributes_for :article, title: '' }
 
       it { is_expected.to have_http_status :unprocessable_entity }
