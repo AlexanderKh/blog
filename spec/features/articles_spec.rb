@@ -4,7 +4,7 @@ feature 'Articles' do
   given(:user) { create :user }
   given(:admin) { create :admin }
 
-  scenario 'Creating article as plain user' do
+  scenario 'user can create an article' do
     login_as user
     visit '/'
     click_link 'New Article'
@@ -21,7 +21,7 @@ feature 'Articles' do
   context 'Given an article owned by user' do
     given!(:article) { create :article, user: user }
 
-    scenario 'Editing article as plain user' do
+    scenario 'user can edit an article' do
       login_as user
       visit '/'
       click_link article.title
@@ -37,7 +37,7 @@ feature 'Articles' do
       expect(page).to have_content 'Abra Ka Dabra'
     end
 
-    scenario 'Deleting article as plain user' do
+    scenario 'user can delete an article' do
       login_as user
       visit '/'
       click_link 'Delete'
@@ -45,7 +45,7 @@ feature 'Articles' do
       expect(page).to have_content 'Article was successfully destroyed'
     end
 
-    scenario 'Editing article as admin' do
+    scenario 'admin can edit an article' do
       login_as admin
       visit '/'
       click_link 'Edit'
@@ -57,14 +57,14 @@ feature 'Articles' do
       expect(page).to have_content 'Abra Ka Dabra'
     end
 
-    scenario 'Deleting article as admin' do
+    scenario 'admin can delete an article' do
       login_as admin
       visit '/'
       click_link 'Delete'
       expect(page).to have_content 'Article was successfully destroyed'
     end
 
-    scenario 'Anonymous cannot edit or delete an article' do
+    scenario 'anonymous cannot edit or delete an article' do
       visit '/'
       expect(page).not_to have_content 'Edit'
       expect(page).not_to have_content 'Delete'
@@ -77,7 +77,7 @@ feature 'Articles' do
   context 'Given an article owned by admin' do
     given!(:article) { create :article, user: admin }
 
-    scenario 'User cannot edit or delete an article' do
+    scenario 'user cannot edit or delete an article' do
       login_as user
       visit '/'
       expect(page).not_to have_content 'Edit'
@@ -87,7 +87,7 @@ feature 'Articles' do
       expect(page).not_to have_content 'Delete'
     end
 
-    scenario 'Admin can edit or delete an article' do
+    scenario 'admin can edit or delete an article' do
       login_as admin
       visit '/'
       expect(page).to have_content 'Edit'
