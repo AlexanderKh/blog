@@ -14,10 +14,35 @@ RSpec.describe User, type: :model do
   end
 
   context 'Permissions' do
+    let(:user) { create :user }
     let(:admin) { create :admin }
-    let(:user_1) { create :user }
-    let(:user_2) { create :user, username: 'johndoe' }
-    let(:article) { create :article }
-    let(:admin_article) { create :admin_article }
+    let(:article) { create :article, user: user }
+    let(:admin_article) { create :article, user: admin }
+    let(:comment) { create :comment, article: article, user: user }
+    let(:admin_comment) { create :comment, article: article, user: admin }
+
+    context 'Admin' do
+      it 'should have access to all articles' do
+        expect(admin.has_access_to?(article)).to be true
+        expect(admin.has_access_to?(admin_article)).to be true
+      end
+
+      it 'should have access to all comments' do
+        expect(admin.has_access_to?(comment)).to be true
+        expect(admin.has_access_to?(admin_comment)).to be true
+      end
+    end
+
+    context 'User' do
+      it 'should have access only to own articles' do
+        expect(user.has_access_to?(article)).to be true
+        expect(user.has_access_to?(admin_article)).to be false
+      end
+
+      it 'should have access only to own comments' do
+        expect(user.has_access_to?(comment)).to be true
+        expect(user.has_access_to?(admin_comment)).to be false
+      end
+    end
   end
 end
