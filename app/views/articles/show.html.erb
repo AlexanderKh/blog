@@ -1,9 +1,11 @@
 <h1><%= @article.title %></h1>
 <p>By <b> <%= @article.author %> </b></p>
 
-<a href="<%= @article.picture.url %>">
-  <%= image_tag @article.picture.url :medium %>
-</a>
+<% if @article.picture.exists? %>
+    <a href="<%= @article.picture.url %>">
+      <%= image_tag @article.picture.url :medium %>
+    </a>
+<% end %>
 
 <p>
   <%= @article.content %>

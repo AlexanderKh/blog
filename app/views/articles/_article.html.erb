@@ -6,9 +6,11 @@
   </a>
 </h2>
 
-<a href="<%= url_for article %>">
-  <%= image_tag article.picture.url :thumb %>
-</a>
+<% if article.picture.exists? %>
+    <a href="<%= url_for article %>">
+      <%= image_tag article.picture.url :thumb %>
+    </a>
+<% end %>
 
 <p>
   Posted on: <%= article.published_at %>
