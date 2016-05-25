@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Articles' do
+feature 'Comments' do
   given(:user) { create :user }
   given(:admin) { create :admin }
   given(:article) { create :article, user: user }
@@ -23,5 +23,15 @@ feature 'Articles' do
 
     find('.comment a', text: 'Delete').click
     expect(page).not_to have_content 'Hi Ladies'
+  end
+
+  scenario "user cannot update or delete other user's comments" do
+    comment = create :comment, user: admin, article: article
+    login_as user
+    visit article_path(article)
+
+    expect(page).to have_content comment.content
+    expect(page).to have_no_selector '.comment a', text: 'Delete'
+    expect(page).to have_no_selector '.comment .rest-in-place'
   end
 end
