@@ -34,4 +34,14 @@ feature 'Comments' do
     expect(page).to have_no_selector '.comment a', text: 'Delete'
     expect(page).to have_no_selector '.comment .rest-in-place'
   end
+
+  scenario 'anonymous can post a comment', js: true do
+    visit article_path(article)
+
+    within '#new_comment' do
+      fill_in 'comment_content', with: 'Hello, people'
+    end
+    click_button 'Comment'
+    expect(page).to have_content 'Hello, people'
+  end
 end
