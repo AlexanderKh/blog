@@ -1,12 +1,11 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:update, :destroy]
   before_action :set_comment, only: [:update, :destroy]
-  before_action :set_article, only: [:create, :update, :destroy]
+  before_action :set_article
   before_action :authorize_user, only: [:update, :destroy]
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.article = @article
+    @comment = @article.comments.new(comment_params)
     @comment.user = current_user
 
     respond_to do |format|
